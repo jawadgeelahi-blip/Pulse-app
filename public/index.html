@@ -6,35 +6,10 @@
 <title>Pulse — Live Location Chat</title>
 <script src="/socket.io/socket.io.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0B0E14; --panel:#12161F; --bubble-them:#1C2230;
-    --bubble-me:#1B3A3D; --cyan:#4DF0E0; --text:#E7ECF3;
-    --sub:#7C8696; --red:#E05C5C;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);}
-  .hidden{display:none!important;}
-  .screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
-  .auth-box{width:100%;max-width:360px;background:var(--panel);border-radius:20px;padding:2.2rem 2rem;border:1px solid rgba(255,255,255,0.07);}
-  .auth-box .logo{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.8rem;color:var(--cyan);text-align:center;margin-bottom:0.3rem;}
-  .auth-box .tagline{text-align:center;color:var(--sub);font-size:0.85rem;margin-bottom:1.8rem;}
-  .auth-box input{width:100%;background:#1A1F2B;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1rem;color:var(--text);font-size:0.92rem;outline:none;margin-bottom:0.8rem;}
-  .auth-box input:focus{border-color:var(--cyan);}
-  .auth-box .btn{width:100%;padding:0.85rem;border:none;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;}
-  .btn-cyan{background:var(--cyan);color:#05070C;}
-  .btn-ghost{background:transparent;color:var(--cyan);margin-top:0.5rem;border:1px solid rgba(77,240,224,0.3);}
-  .auth-err{color:var(--red);font-size:0.8rem;text-align:center;margin-top:0.6rem;min-height:1.1rem;}
-  .gate-box{width:100%;max-width:360px;background:var(--panel);border-radius:20px;padding:2.5rem 2rem;text-align:center;border:1px solid rgba(77,240,224,0.15);}
-  .gate-icon{width:80px;height:80px;border-radius:50%;background:rgba(77,240,224,0.08);border:1px solid rgba(77,240,224,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:var(--cyan);}
-  .gate-icon svg{width:34px;height:34px;}
-  .gate-box h2{font-family:'Poppins',sans-serif;font-size:1.2rem;margin-bottom:0.7rem;}
-  .gate-box p{color:var(--sub);font-size:0.87rem;line-height:1.6;margin-bottom:1.8rem;}
-  .gate-box .btn{display:block;width:100%;padding:0.85rem;border:none;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;}
-  #appScreen{flex-direction:column;align-items:stretch;padding:0;}
-  .app-layout{display:flex;height:100%;width:100%;max-width:900px;margin:0 auto;}
-  .sidebar{width:220px;flex-shrink:0;background:var(--panel);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;}
+:root{--bg:#0B0E14;--panel:#12161F;--bubble-them:#1C2230;--bubble-me:#1B3A3D;--cyan:#4DF0E0;--text:#E7ECF3;--sub:#7C8696;--red:#E05C5C;}
+*{marg  .sidebar{width:220px;flex-shrink:0;background:var(--panel);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;}
   .sidebar-head{padding:1rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
   .sidebar-head .me{font-family:'Poppins',sans-serif;font-weight:600;font-size:0.9rem;color:var(--cyan);}
   .sidebar-head .logout{background:none;border:none;color:var(--sub);cursor:pointer;font-size:0.75rem;padding:0.3rem 0.6rem;border-radius:6px;}
