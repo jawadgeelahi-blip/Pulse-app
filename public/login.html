@@ -14,53 +14,69 @@ input{width:100%;background:#1A1F2B;border:1px solid #2a3346;border-radius:8px;p
 button{width:100%;padding:0.8rem;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;margin-bottom:0.5rem;display:block;}
 .c{background:#4DF0E0;color:#05070C;}
 .g{background:transparent;color:#4DF0E0;border:1px solid #4DF0E0;}
-.err{color:#E05C5C;font-size:0.8rem;margin-top:0.5rem;}
+#e{color:#E05C5C;font-size:0.8rem;margin-top:0.5rem;min-height:1rem;}
 </style>
 </head>
 <body>
 <div class="box">
   <h1>⚡ Pulse</h1>
   <p>Live location. Real conversations.</p>
-  <input type="text" id="u" placeholder="Username" autocomplete="off">
-  <input type="password" id="p" placeholder="Password">
-  <button class="c" id="lb">Login</button>
-  <button class="g" id="sb">Create account</button>
-  <div class="err" id="e"></div>
+  <input type="text" id="u" placeholder="Username (min 3 chars)" autocomplete="off">
+  <input type="password" id="p" placeholder="Password (min 4 chars)">
+  <button class="c" onclick="doLogin()">Login</button>
+  <button class="g" onclick="doSignup()">Create account</button>
+  <div id="e"></div>
 </div>
 <script>
-document.getElementById('lb').onclick=function(){
+function doLogin(){
   var u=document.getElementById('u').value.trim();
   var p=document.getElementById('p').value;
+  document.getElementById('e').textContent='';
   if(!u||!p){document.getElementById('e').textContent='Fill both fields';return;}
+  document.getElementById('e').textContent='Logging in...';
   fetch('/api/login',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({username:u,password:p})
-  }).then(function(r){return r.json();}).then(function(r){
+  })
+  .then(function(r){return r.json();})
+  .then(function(r){
     if(r.error){document.getElementById('e').textContent=r.error;return;}
     localStorage.setItem('pt',r.token);
     localStorage.setItem('pu',r.username);
-    window.location.href='/';
-  }).catch(function(){document.getElementById('e').textContent='Network error';});
-};
+    document.getElementById('e').textContent='Success! Loading...';
+    setTimeout(function(){window.location.href='/';},500);
+  })
+  .catch(function(err){
+    document.getElementById('e').textContent='Error: '+err.message;
+  });
+}
 
-document.getElementById('sb').onclick=function(){
+function doSignup(){
   var u=document.getElementById('u').value.trim();
   var p=document.getElementById('p').value;
+  document.getElementById('e').textContent='';
   if(!u||!p){document.getElementById('e').textContent='Fill both fields';return;}
   if(u.length<3){document.getElementById('e').textContent='Username min 3 chars';return;}
   if(p.length<4){document.getElementById('e').textContent='Password min 4 chars';return;}
+  document.getElementById('e').textContent='Creating account...';
   fetch('/api/signup',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({username:u,password:p})
-  }).then(function(r){return r.json();}).then(function(r){
+  })
+  .then(function(r){return r.json();})
+  .then(function(r){
     if(r.error){document.getElementById('e').textContent=r.error;return;}
     localStorage.setItem('pt',r.token);
     localStorage.setItem('pu',r.username);
-    window.location.href='/';
-  }).catch(function(){document.getElementById('e').textContent='Network error';});
-};
+    document.getElementById('e').textContent='Account created! Loading...';
+    setTimeout(function(){window.location.href='/';},500);
+  })
+  .catch(function(err){
+    document.getElementById('e').textContent='Error: '+err.message;
+  });
+}
 </script>
 </body>
-    </html>
+  </html>
